@@ -12,6 +12,9 @@ class FormCategoria(forms.ModelForm):
         )
 
 class FormPiatto(forms.ModelForm):
+
+    descrizione=forms.CharField(widget=forms.Textarea, required=False)
+
     class Meta:
         model=Piatto
 
