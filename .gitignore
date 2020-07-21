@@ -1,6 +1,6 @@
-domain.txt
-google_api_key.txt
-secretkey.txt
+/domain.txt
+/google_api_key.txt
+/secretkey.txt
 db.sqlite3
 !/static
 /static/*
