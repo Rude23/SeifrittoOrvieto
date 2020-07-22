@@ -25,14 +25,12 @@
          <div class="collapse navbar-collapse" id="navbarResponsive">
              <ul class="navbar-nav ml-auto">
                  <li class="nav-item">
+                     {% comment %}
                      <a class="nav-link"  href="#OfferteSpeciali"> Offerte Speciali </a>
+                     {% endcomment %}
                  {% for item in qs %}
                  <li class="nav-item">
-                     {% if request.path == "menu/menu_ordinato#{{item.nome}}" %}
-                        <a class="active nav-link"  href=#{{item.nome}}"> {{item.nome}} </a>
-                     {% else %}
-                        <a class="nav-link"  href="#{{item.nome}}"> {{item.nome}} </a>
-                     {% endif%}
+                      <a class="nav-link"  href="#{{item.nome}}"> {{item.nome}} </a>
                  </li >
                  {% endfor %}
              </ul>
@@ -46,6 +44,7 @@
     {% for item in qs %}
     <h2> {{item.nome}} </h2>
         <ul>
+            <hr class="light" style="margin-top: 0.1rem; margin-bottom: 0.1rem; border-top: 1px solid ##191919; width: 99%;">
             {% for piatto in item.get_prodotti %}
             {% if piatto.in_menu %}
             <li id="{{item.nome}}" class="row">
@@ -79,6 +78,8 @@
             <hr class="light" style="margin-top: 0.1rem; margin-bottom: 0.1rem; border-top: 1px solid ##191919; width: 99%;">
         </ul>
     {% endfor %}
+
+    {% comment %}
     <h2 id="OfferteSpeciali">Offerte speciali</h2>
         <ul>
             {% for item in offerte %}
@@ -118,7 +119,9 @@
             {% endif %}
             {% endfor %}
         </ul>
+    {%endcomment%}
 </div>
+
 {% endblock %}
 
 {% block footer %}
