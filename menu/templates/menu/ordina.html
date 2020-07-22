@@ -79,51 +79,15 @@
         </ul>
     {% endfor %}
 
-    {% comment %}
-    <h2 id="OfferteSpeciali">Offerte speciali</h2>
-        <ul>
-            {% for item in offerte %}
-            {% if item.in_menu %}
-                <li class="row">
-                    <span class="col-6 col-md-6">
-                        {% if item.get_disponibile %}
-                        <h5>{{item.nome}}</h5>
-                        {% else %}
-                        <del><h5>{{item.nome}}</h5></del>
-                        {% endif %}
-                            <ul class="ml-auto" style="list-style-type:none;">
-                            {% for piatto in item.prodotti.all %}
-                                <li >
-                                {% if piatto.get_disponibile %}
-                                    <p style="text-transform: capitalize;">{{piatto}}</p>
-                                {% else %}
-                                    <del><p style="text-transform: capitalize;">{{piatto }}</p></del>
-                                {% endif %}
-                                </li>
-                            {%endfor%}
-                            </ul>
-                    </span >
 
-                <span class="col-4 col-md-4">
-                    <h5> {{item.prezzo}} £</h5>
-                </span>
-
-                <span class="col-2 col-md-2">
-                    {% comment %}
-                    {% if item.get_disponibile %}
-                    <a href="{{item.get_add_to_cart_url}} "> <i class="fas fa-cart-plus vcenter" style="font-size: 135%"></i></a>
-                    {%  endif %}
-                    {% endcomment %}
-                </span>
-                </li>
-            {% endif %}
-            {% endfor %}
-        </ul>
-    {%endcomment%}
 </div>
 
 {% endblock %}
+    {% comment %}
 
+CXopy here offerte speciali from differetn branch
+
+    {% endcomment %}
 {% block footer %}
 <div class="bg-dark text-center fixed-bottom" style="border-radius: 25px 25px 0px 0px ; border: 2px solid #191919; ">
     <h1 style="color: #f5f5f5; padding: 2 rem"> Ordina adesso al +39 3396075831 </h1>

@@ -25,7 +25,7 @@ with open(os.path.join(BASE_DIR, 'google_api_key.txt')) as f:
     GOOGLE_API_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
