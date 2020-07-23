@@ -102,20 +102,20 @@
         </h3>
         <span class="col-12 col-md-3 text-center">
             <div class=>
-                <input type="checkbox" onchange="window.location.href='{{piatto.get_change_in_menu_url}}'"
+                <input type="checkbox" onchange="window.location.href='{{item.get_change_in_menu_url}}'"
                        {%if piatto.in_menu%} checked {%endif%}>
                 <p>In Menu</p>
             </div>
         </span>
 
         <span class="col-6 col-md-3 mr-auto">
-            <a class="btn btn-warning" href="{{piatto.get_update_url}}">
+            <a class="btn btn-warning" href="{{item.get_update_url}}">
                 Modifica
             </a>
         </span>
 
         <span class="col-6 col-md-3 mr-auto">
-            <a class="btn btn-secondary" href="{{piatto.get_prompt_delete_url}}">
+            <a class="btn btn-secondary" href="{{item.get_prompt_delete_url}}">
                 Elimina
             </a>
         </span>
@@ -139,12 +139,6 @@
                                 {%if piatto.disponibile%} checked {%endif%}>
                             <p>Disponibile</p>
                         </span>
-                </span>
-
-                <span class="col-6 col-md-2">
-                    <input type="checkbox" onchange="window.location.href='{{piatto.get_change_in_menu_url}}'"
-                           {%if piatto.in_menu%} checked {%endif%}>
-                    <p>In Menu</p>
                 </span>
 
                     <span class="col-6 col-md-2">
