@@ -93,13 +93,13 @@
     <hr>
     <h1> OFFERTE </h1>
     <hr>
-    {% for piatto in offerte %}
+    {% for item in offerte %}
     <div class="container-fluid">
     <div class="row">
 
-        <h5 class="col-12 col-md-3 ml-auto">
-            {{piatto}}
-        </h5>
+        <h3 class="col-12 col-md-3 ml-auto">
+            {{item}}
+        </h3>
         <span class="col-12 col-md-3 text-center">
             <div class=>
                 <input type="checkbox" onchange="window.location.href='{{piatto.get_change_in_menu_url}}'"
@@ -123,6 +123,48 @@
     </div>
     </div>
     <br class="hidden-md-up">
+
+    <hr>
+        {% for piatto in item.prodotti.all %}
+                <div class="container-fluid">
+                <div class="row">
+                <h5 class="col-12 col-md-4">
+                    {{piatto}}
+                </h5>
+
+                <span class="col-6 col-md-2">
+
+                        <span>
+                            <input type="checkbox" onchange="window.location.href='{{piatto.get_change_disponibile_url}}'"
+                                {%if piatto.disponibile%} checked {%endif%}>
+                            <p>Disponibile</p>
+                        </span>
+                </span>
+
+                <span class="col-6 col-md-2">
+                    <input type="checkbox" onchange="window.location.href='{{piatto.get_change_in_menu_url}}'"
+                           {%if piatto.in_menu%} checked {%endif%}>
+                    <p>In Menu</p>
+                </span>
+
+                    <span class="col-6 col-md-2">
+                    <a class="btn btn-warning" href="{{piatto.get_update_url}}">
+                        Modifica
+                    </a>
+                </span>
+
+                <span class="col-6 col-md-2">
+                    <a class="btn btn-secondary" href="{{piatto.get_prompt_delete_url}}">
+                        Elimina
+                    </a>
+                </span>
+
+            </div>
+
+        </div>
+        <br class="hidden-md-up">
+        {% endfor %}
+    <hr>
     {%endfor%}
 
     <a class="btn btn-primary" href="create_offerta" style="margin:0.5rem 0.5rem 2rem 3rem;">AGGIUNGI OFFERTA</a>

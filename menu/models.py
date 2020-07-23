@@ -101,7 +101,7 @@ class Piatto(Prodotto):
 
     descrizione = models.TextField(blank=True, null=True)
 
-    category = models.ForeignKey(Categoria, on_delete=models.CASCADE)
+    category = models.ForeignKey(Categoria, on_delete=models.CASCADE, blank=True, null=True)
 
     def get_change_disponibile_url(self):
 
