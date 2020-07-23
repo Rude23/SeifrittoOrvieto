@@ -105,9 +105,11 @@
                 </span>
 
                 <span class="col-2 col-md-2">
+                    {% comment %}
                     {% if item.get_disponibile %}
                     <a href="{{item.get_add_to_cart_url}} "> <i class="fas fa-cart-plus vcenter" style="font-size: 135%"></i></a>
-                    {%  endif %}
+                    {% endif %}
+                    {% comment %}
                 </span>
                 </li>
             {% endif %}
