@@ -33,9 +33,9 @@
     <li class="row" style="padding: 0.1 rem;">
         <span class="text-center col-6 col-md-4" >
             {% if item.prodotto.get_disponibile %}
-            <p style="text-transform: capitalize">{{item.prodotto.nome}}</p>
+            <p style="">{{item.prodotto.nome}}</p>
             {% else %}
-            <del><p style="text-transform: capitalize">{{item.prodotto.nome}}</p></del>
+            <del><p style="">{{item.prodotto.nome}}</p></del>
             {% endif%}
         </span>
 

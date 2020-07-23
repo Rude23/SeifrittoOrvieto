@@ -25,9 +25,7 @@
          <div class="collapse navbar-collapse" id="navbarResponsive">
              <ul class="navbar-nav ml-auto">
                  <li class="nav-item">
-                     {% comment %}
                      <a class="nav-link"  href="#OfferteSpeciali"> Offerte Speciali </a>
-                     {% endcomment %}
                  {% for item in qs %}
                  <li class="nav-item">
                       <a class="nav-link"  href="#{{item.nome}}"> {{item.nome}} </a>
@@ -78,17 +76,47 @@
             <hr class="light" style="margin-top: 0.1rem; margin-bottom: 0.1rem; border-top: 1px solid ##191919; width: 99%;">
         </ul>
     {% endfor %}
+        <h2 id="OfferteSpeciali">Offerte speciali</h2>
+        <ul>
+            {% for item in offerte %}
+            {% if item.in_menu %}
+                <li class="row">
+                    <span class="col-6 col-md-6">
+                        {% if item.get_disponibile %}
+                        <h5>{{item.nome}}</h5>
+                        {% else %}
+                        <del><h5>{{item.nome}}</h5></del>
+                        {% endif %}
+                            <ul class="ml-auto" style="list-style-type:none;">
+                            {% for piatto in item.prodotti.all %}
+                                <li >
+                                {% if piatto.get_disponibile %}
+                                    <p>{{piatto}}</p>
+                                {% else %}
+                                    <del><p>{{piatto }}</p></del>
+                                {% endif %}
+                                </li>
+                            {%endfor%}
+                            </ul>
+                    </span >
+
+                <span class="col-4 col-md-4">
+                    <h5> {{item.prezzo}} £</h5>
+                </span>
+
+                <span class="col-2 col-md-2">
+                    {% if item.get_disponibile %}
+                    <a href="{{item.get_add_to_cart_url}} "> <i class="fas fa-cart-plus vcenter" style="font-size: 135%"></i></a>
+                    {%  endif %}
+                </span>
+                </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
 
 
 </div>
 
-{% endblock %}
-
-    {% comment %}
-
-CXopy here offerte speciali from differetn branch
-
-    {% endcomment %}
 {% block footer %}
 <div class="bg-dark text-center fixed-bottom" style="border-radius: 25px 25px 0px 0px ; border: 2px solid #191919; ">
     <h1 style="color: #f5f5f5; padding: 2 rem"> Ordina adesso al +39 3396075831 </h1>
@@ -101,9 +129,9 @@ CXopy here offerte speciali from differetn branch
     <li class="row" style="padding: 0.1 rem;">
         <span class="text-center col-6 col-md-4" >
             {% if item.prodotto.get_disponibile %}
-            <p style="text-transform: capitalize">{{item.prodotto.nome}}</p>
+            <p style="">{{item.prodotto.nome}}</p>
             {% else %}
-            <del><p style="text-transform: capitalize">{{item.prodotto.nome}}</p></del>
+            <del><p style="">{{item.prodotto.nome}}</p></del>
             {% endif%}
         </span>
 
