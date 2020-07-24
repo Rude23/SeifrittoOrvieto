@@ -1,0 +1,44 @@
+{%extends 'base.html'%}
+
+{%block media%}
+<meta http-equiv="refresh" content="300">
+{% endblock %}
+
+{% block title %} MANAGER {% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
+     <div class="container-fluid">
+
+         <h1 class="navbar-brand" style=" font-size: 300% ; ">{{user.get_username}}</h1>
+
+         <button id="btn" class="navbar-toggler bg-dark btn" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+             <span  class="navbar-toggler-icon"></span>
+         </button>
+
+         <div class="collapse navbar-collapse" id="navbarResponsive" style=" font-size: 130% ; ">
+             <ul class="navbar-nav ml-auto">
+                 <li class="nav-item">
+                     <a class="nav-link"  href="menu/manage_menu" target="_blank" rel="noopener noreferrer"> Organizza il menu </a>
+                 </li >
+
+                 <li class="nav-item">
+                     <a class="nav-link" href="/manage_view" target="_blank" rel="noopener noreferrer"> Gestisci la homepage </a>
+                 </li>
+
+                 <li class="nav-item">
+                        <a class="nav-link" href="ordinazioni/lista_ordinazioni" target="_blank" rel="noopener noreferrer"> Vedi le ordinazioni </a>
+                 </li>
+             </ul>
+         </div>
+     </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid text-center">
+    <br>
+    <h1> BENTORNATO {{user.get_username}} !</h1>
+    <br>
+</div>
+{% endblock %}

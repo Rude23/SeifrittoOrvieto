@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block media %}
+    <meta http-equiv="refresh" content="300">
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'menu/css/manage_menu.css' %}"/>
+{% endblock %}
+
+{% block title %} Manage_Menu {% endblock %}
+
+{% block content %}
+
+<div style="padding-top: 1rem;">
+    {% for item in categorie %}
+    <div>
+    <div class="container-fluid">
+    <div class="row">
+
+        <h1 class="col-12 col-md-4">{{item.paginate_by}}--{{item}}</h1>
+
+        <span class="col-4 col-md-2">
+            <i class="fas fa-arrow-up fa-2x" onclick="window.location.href='{{item.get_move_up_url}}'"></i>
+        </span>
+
+        <span class="col-4 col-md-2">
+            <i class="fas fa-arrow-down fa-2x" onclick="window.location.href='{{item.get_move_down_url}}'"></i>
+        </span>
+
+        <div class="col-4 col-md-2">
+            <span>
+                <input type="checkbox" onchange="window.location.href='{{item.get_change_show_url}}'"
+                       {%if item.show %} checked {%endif%} style="width: 1rem;"/>
+                <p>Mostra</p>
+            </span>
+        </div>
+
+        <span class="col-12 col-md-2">
+            <a class="btn btn-warning" href="{{item.get_update_url}}">MODIFICA</a>
+        </span>
+
+    </div>
+    </div>
+    <hr>
+        {% for piatto in item.get_prodotti %}
+                <div class="container-fluid">
+                <div class="row">
+                <h5 class="col-12 col-md-4">
+                    {{piatto}}
+                </h5>
+
+                <span class="col-6 col-md-2">
+
+                        <span>
+                            <input type="checkbox" onchange="window.location.href='{{piatto.get_change_disponibile_url}}'"
+                                {%if piatto.disponibile%} checked {%endif%}>
+                            <p>Disponibile</p>
+                        </span>
+                </span>
+
+                <span class="col-6 col-md-2">
+                    <input type="checkbox" onchange="window.location.href='{{piatto.get_change_in_menu_url}}'"
+                           {%if piatto.in_menu%} checked {%endif%}>
+                    <p>In Menu</p>
+                </span>
+
+                    <span class="col-6 col-md-2">
+                    <a class="btn btn-warning" href="{{piatto.get_update_url}}">
+                        Modifica
+                    </a>
+                </span>
+
+                <span class="col-6 col-md-2">
+                    <a class="btn btn-secondary" href="{{piatto.get_prompt_delete_url}}">
+                        Elimina
+                    </a>
+                </span>
+
+            </div>
+
+        </div>
+        <br class="hidden-md-up">
+        {% endfor %}
+    <a class="btn btn-primary" href="create_piatto" style="margin:0.5rem 0.5rem 0.5rem 3rem;"> AGGIUNGI PIATTO </a>
+        <hr>
+
+        </div>
+    {% endfor %}
+
+    <a class="btn btn-primary" href="create_categoria" style="margin:0.5rem 0.5rem 0.5rem 3rem;">AGGIUNGI CATEGORIA</a>
+</div>
+
+<div class="container-fluid">
+    <hr>
+    <h1> OFFERTE </h1>
+    <hr>
+    {% for piatto in offerte %}
+    <div class="container-fluid">
+    <div class="row">
+
+        <h5 class="col-12 col-md-3 ml-auto">
+            {{piatto}}
+        </h5>
+        <span class="col-12 col-md-3 text-center">
+            <div class=>
+                <input type="checkbox" onchange="window.location.href='{{piatto.get_change_in_menu_url}}'"
+                       {%if piatto.in_menu%} checked {%endif%}>
+                <p>In Menu</p>
+            </div>
+        </span>
+
+        <span class="col-6 col-md-3 mr-auto">
+            <a class="btn btn-warning" href="{{piatto.get_update_url}}">
+                Modifica
+            </a>
+        </span>
+
+        <span class="col-6 col-md-3 mr-auto">
+            <a class="btn btn-secondary" href="{{piatto.get_prompt_delete_url}}">
+                Elimina
+            </a>
+        </span>
+
+    </div>
+    </div>
+    <br class="hidden-md-up">
+    {%endfor%}
+
+    <a class="btn btn-primary" href="create_offerta" style="margin:0.5rem 0.5rem 2rem 3rem;">AGGIUNGI OFFERTA</a>
+</div>
+{% endblock %}

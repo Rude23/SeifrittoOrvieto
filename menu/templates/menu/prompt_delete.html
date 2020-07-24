@@ -1,0 +1,22 @@
+{%extends 'base.html'%}
+
+{%block media%}
+<meta http-equiv="refresh" content="300">
+{% endblock %}
+
+{% block title %} delete-{{object}}-{{object.id}} {% endblock %}
+
+{% block content %}
+    <div class="container_fluid bg_light" style="margin: 1rem; border: 2px solid #000;">
+        <div class="row text-center">
+            <h1 class="col-12"> Sei sicuro di voler eliminare</h1>
+            <h1 class="col-12" style="text-transform: uppercase"> {{object}}-{{object.id}}</h1>
+            <a class="btn btn-danger col-5 mr-auto" style="margin: 2rem; border: 2px solid #000;" href="{{object.get_delete_url}}">
+                ELIMINA
+            </a>
+            <a class="btn btn-default col-5 ml-auto" style="margin: 2rem; border: 2px solid #000;" href="/menu/manage_menu">
+                INDIETRO
+            </a>
+        </div>
+    </div>
+{% endblock %}

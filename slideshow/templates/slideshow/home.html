@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block media %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'slideshow/css/style.css' %}"/>
+    <meta http-equiv="refresh" content="300">
+{% endblock %}
+
+{% block title %} SeiFritto-Orvieto {% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+     <div class="container-fluid">
+
+         <a class="navbar-brand"  href="/"> <h1>6fritto</h1> </a>
+
+         <button id="btn" class="navbar-toggler bg-dark btn" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+             <span  class="navbar-toggler-icon"></span>
+         </button>
+
+         <div class="collapse navbar-collapse" id="navbarResponsive">
+             <ul class="navbar-nav ml-auto">
+
+                 {%comment%}
+                 <li class="nav-item">
+                     <a class="nav-link"  href="menu/menu_ordinato"> Ordina onLine </a>
+                 </li >
+                 {%endcomment%}
+
+                 <li class="nav-item">
+                    <a class="nav-link" href="#doveSiamo"> Dove siamo </a>
+                 </li>
+
+
+                 <li class="nav-item">
+                     <a class="nav-link" href="#contatti"> Contattaci </a>
+                 </li>
+             </ul>
+         </div>
+
+     </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div id="slide_show" class="carousel slide" data-ride="carousel">
+
+    <div class="carousel-inner">
+      {% for item in slide %}
+      <div class="carousel-item {% if forloop.first %} active {%endif%}">
+          <img src="{{ item.img.url }}" style="width: 100%">
+      </div>
+      {% endfor %}
+    </div>
+
+  <a class="carousel-control-prev" href="#slide_show" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#slide_show" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="container-fluid">
+
+    <div class="row text-center">
+
+        <div class="col-md-4" id="doveSiamo">
+
+            <hr class="light">
+            <div>
+                <h3>Dove Siamo</h3>
+            </div>
+            <hr class="light">
+            <div>
+                <div class="align-middle">
+                <p>Piazza Cahen</p>
+                <p>Orvieto  05018  TR</p>
+                <p></p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-4" id="contatti">
+
+            <hr class="light">
+            <div>
+            <h3>Contatti</h3>
+            </div>
+            <hr class="light">
+            <div>
+                <div class="align-middle">
+                <p>+39 3396075831</p>
+                <p>contatti@seifrittorvieto.it</p>
+                <p>
+                    <span style="padding-right: 0.7em">
+                         <a href="https://www.tripadvisor.it/Restaurant_Review-g194843-d18503774-Reviews-Sei_fritto-Orvieto_Province_of_Terni_Umbria.html"
+                         target="_blank" rel="noopener noreferrer" >
+                             <i style="color: #f5f5f5;" class="fab fa-tripadvisor fa-2x"></i>
+                         </a>
+                    </span >
+
+                    <span style="padding-left: 0.7em">
+                         <a href="https://it-it.facebook.com/pages/category/Restaurant/Friggitoria-Sei-Fritto-527591431019230/"
+                         target="_blank" rel="noopener noreferrer" >
+                             <i style="color: #f5f5f5;" class="fab fa-facebook fa-2x"></i>
+                         </a>
+                    </span>
+                </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4" id="orario">
+            <hr class="light">
+            <div>
+            <h3>Orari</h3>
+            </div>
+            <hr class="light">
+            <div>
+                <div class="align-middle">
+                    <p> 10:00 - 15:00 </p>
+                    <p> 18:00 - 23:30</p>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <hr class="light">
+
+            <h6 class="col-12"> Python 3.6  | Django 2.2 </h6>
+
+            <hr class="light">
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+html, body, header{
+    background-color: #191919;
+    color: #191919;
+}
+
+body{
+    padding-top:3.3rem;
+}
+
+@media (max-width: 576px) {
+html {
+font-size: 80%;
+}
+}
+[class*="col-"] {
+}

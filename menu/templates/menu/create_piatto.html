@@ -1,0 +1,19 @@
+{% extends 'base.html'%}
+
+{% block media %}
+{% load crispy_forms_tags %}
+<meta http-equiv="refresh" content="300">
+{{ form.media }}
+{% endblock %}
+
+{%block title %}create_piatto{%endblock%}
+    
+{%block content%}
+<div class="container-fluid" style="padding: 2rem;">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form|crispy}}
+        <input type="submit" value="Aggiungi">
+    </form>
+</div>
+{%endblock%}

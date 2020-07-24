@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block media %}
+<meta http-equiv="refresh" content="15">
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'menu/css/menu_ordinato.css' %}" />
+{% endblock %}
+
+{% block title %} OrdinaOnLine {% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top" >
+     <div class="container-fluid">
+
+         <a class="active navbar-brand"  href="/"> <h1>6fritto</h1> </a>
+
+         <button id="btn" class="navbar-toggler bg-dark btn" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+             <span  class="navbar-toggler-icon"></span>
+         </button>
+
+         <div class="collapse navbar-collapse" id="navbarResponsive">
+             <ul class="navbar-nav ml-auto">
+                 <li class="nav-item">
+                     <a class="nav-link"  href="#OfferteSpeciali"> Offerte Speciali </a>
+                 {% for item in qs %}
+                 <li class="nav-item">
+                     {% if request.path == "menu/menu_ordinato#{{item.nome}}" %}
+                        <a class="active nav-link"  href=#{{item.nome}}"> {{item.nome}} </a>
+                     {% else %}
+                        <a class="nav-link"  href="#{{item.nome}}"> {{item.nome}} </a>
+                     {% endif%}
+                 </li >
+                 {% endfor %}
+             </ul>
+         </div>
+     </div>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div id=menu" class="container-fluid bg-light text-center" style="padding-top: 1rem; padding-bottom: 0.1rem; border-radius: 25px; border: 2px solid #191919;">
+    {% for item in qs %}
+    <h2> {{item.nome}} </h2>
+        <ul>
+            {% for piatto in item.get_prodotti %}
+            {% if piatto.in_menu %}
+            <li id="{{item.nome}}" class="row">
+                <span class="col-12 col-md-6 ">
+                {% if piatto.get_disponibile %}
+                    <h5>{{piatto.nome}}</h5>
+                    <p>{{piatto.descrizione}}</p>
+                {% else %}
+                    <del>
+                        <h5>{{piatto.nome}}</h5>
+                        <p>{{piatto.descrizione}}</p>
+                    </del>
+                {% endif %}
+                </span >
+
+                <span class="col-6 col-md-4">
+                    <h5> {{piatto.prezzo}} £</h5>
+                </span>
+
+
+                <span class="col-6 col-md-2 ">
+                    {% if piatto.get_disponibile %}
+                    <a href="{{piatto.get_add_to_cart_url}}"> <i class="fas fa-cart-plus vcenter" style="font-size: 135%"></i></a>
+                    {%  endif %}
+                </span>
+            </li>
+            {% endif %}
+            {% endfor %}
+            <hr class="light" style="margin-top: 0.1rem; margin-bottom: 0.1rem; border-top: 1px solid ##191919; width: 99%;">
+        </ul>
+    {% endfor %}
+    <h2 id="OfferteSpeciali">Offerte speciali</h2>
+        <ul>
+            {% for item in offerte %}
+            {% if item.in_menu %}
+                <li class="row">
+                    <span class="col-6 col-md-6">
+                        {% if item.get_disponibile %}
+                        <h5>{{item.nome}}</h5>
+                        {% else %}
+                        <del><h5>{{item.nome}}</h5></del>
+                        {% endif %}
+                            <ul class="ml-auto" style="list-style-type:none;">
+                            {% for piatto in item.prodotti.all %}
+                                <li >
+                                {% if piatto.get_disponibile %}
+                                    <p style="text-transform: capitalize;">{{piatto}}</p>
+                                {% else %}
+                                    <del><p style="text-transform: capitalize;">{{piatto }}</p></del>
+                                {% endif %}
+                                </li>
+                            {%endfor%}
+                            </ul>
+                    </span >
+
+                <span class="col-4 col-md-4">
+                    <h5> {{item.prezzo}} £</h5>
+                </span>
+
+                <span class="col-2 col-md-2">
+                    {% if item.get_disponibile %}
+                    <a href="{{item.get_add_to_cart_url}} "> <i class="fas fa-cart-plus vcenter" style="font-size: 135%"></i></a>
+                    {%  endif %}
+                </span>
+                </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="bg-light text-center fixed-bottom" style="border-radius: 25px 25px 0px 0px ; border: 2px solid #191919; ">
+<div id="carrello" class="content collapse">
+    <ul style="margin-top: 0.3rem; margin-bottom: 0.1rem">
+    {%for item in carrello.prodotti.all%}
+    <li class="row" style="padding: 0.1 rem;">
+        <span class="text-center col-6 col-md-4" >
+            {% if item.prodotto.get_disponibile %}
+            <p style="text-transform: capitalize">{{item.prodotto.nome}}</p>
+            {% else %}
+            <del><p style="text-transform: capitalize">{{item.prodotto.nome}}</p></del>
+            {% endif%}
+        </span>
+
+        <span class="text-center col-6 col-md-2" >
+            {{item.get_conto}} £
+        </span>
+
+        <span class="text-center col-6 col-md-3">
+            {% if item.prodotto.get_disponibile %}
+            <span class="text-center vcenter" style="padding-right: 0.5rem;">
+                <a href="{{item.prodotto.get_remove_from_cart_url}}"><i class="fas fa-minus"></i></a>
+            </span>
+
+            <span class="text-center" style="padding-right: 0.5rem; padding-left: 0.5rem;">
+                {{item.qtty}}
+            </span >
+
+            <span class="text-center" style="padding-left: 0.5rem;">
+                <a href="{{item.prodotto.get_add_to_cart_url}}"><i class="fas fa-plus"></i></a>
+            </span>
+            {% endif %}
+        </span>
+
+        <span class="text-center col-6 col-md-3">
+            <a href="{{item.prodotto.get_delete_from_cart_url}}"><i class="far fa-trash-alt"></i></a>
+        </span>
+
+    </li>
+    {%endfor%}
+    </ul>
+
+    <hr class="light" style="margin-top: 0.1rem; margin-bottom: 0.1rem; border-top: 1px solid ##191919; width: 99%;">
+</div>
+
+<div class="collapsible row" aria-expanded="false" data-toggle="collapse" data-target="#carrello" style="padding-top: 0.3rem; padding-bottom: 0.1rem">
+    <span class="col-6">
+        <h4 style="margin-top: 0.4rem;">{{carrello.get_conto}} £</h4>
+    </span>
+
+    <span class="col-6">
+        {% if carrello.get_conto > 20 %}
+        <a href="/ordinazioni/checkout" class="btn btn-primary" style="border-radius: 25px; border: 1px solid #191919;">
+            <p class=align-center" style="margin-bottom: 0.1rem; color: #191919;"> Ordina Adesso </p>
+        </a>
+        {% endif %}
+    </span>
+</div>
+</div>
+{% endblock %}
