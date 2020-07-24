@@ -41,11 +41,6 @@ hr.light {
 #slide_show {
    margin: 0rem .5rem 0rem 2rem;
 }
-.carousel-caption h1 {
-    text-transform: uppercase;
-    text-shadow: text-shadow: 200px 200px 0px #000;
-}
-
 
 /*---Media Queries --*/
 @media (max-width: 992px) {
