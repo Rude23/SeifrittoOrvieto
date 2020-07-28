@@ -1,3 +1,7 @@
+/ordinazioni/settings/
+/ordinazioni/settings/**
+**/__init__.py
+/SeiFritto/emailsettings.py
 /domain.txt
 /google_api_key.txt
 /secretkey.txt

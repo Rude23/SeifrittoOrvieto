@@ -1,15 +1,32 @@
+import os
 
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views.generic import View, ListView
 from django.contrib import messages
 from django.contrib.sessions.models import Session
 from django.utils.safestring import mark_safe
+from django.core.mail import send_mail
+from django.template.loader import get_template
+from django.template import Context
 
 from .models import Carrello, Ordinazione, Nel_Carrello
 from .forms import OrdinazioneForm
 
 from menu.models import Offerta, Prodotto
 
+APP_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),"ordinazioni")
+
+with open(os.path.join(APP_DIR, 'settings/postmaster.txt')) as f:
+    POSTMASTER = f.read().strip()
+
+with open(os.path.join(APP_DIR, 'settings/postmasterKey.txt')) as f:
+    POSTMASTER_KEY = f.read().strip()
+
+with open(os.path.join(APP_DIR, 'settings/ordinazioni.txt')) as f:
+    ORDINAZIONI = f.read().strip()
+
+with open(os.path.join(APP_DIR, 'settings/ordinazioniKey.txt')) as f:
+    ORDINAZIONI_KEY = f.read().strip()
 # Create your views here.
 
 class OrdinazioniList(ListView):
@@ -114,11 +131,42 @@ class Checkout(View):
                     conto=context['carrello'].get_conto()
                     )
 
-                self.request.session.set_expiry(1)
-                messages.success(self.request, "La tua ordinazione è stata inoltrata")
                 ord.save()
+                try:
+                    templateForCliente = get_template("ordinazioni/conferma_ordinazione.txt")
+                    templateForMe = get_template("ordinazioni/mail_ordinazione.txt")
 
-                return redirect(reverse("home:home"))
+                    send_mail(
+                        subject="ordinazione #{}".format(ord.id),
+                        message=templateForCliente.render(context={"item":ord}),
+                        from_email=ORDINAZIONI,
+                        auth_user=ORDINAZIONI,
+                        auth_password=ORDINAZIONI_KEY,
+                        recipient_list=[ord.email],
+                        fail_silently=False
+                    )
+
+                    send_mail(
+                        subject="ordinazione #{}".format(ord.id),
+                        message=templateForMe.render(context={"item":ord}),
+                        from_email=ord.email,
+                        auth_user=POSTMASTER,
+                        auth_password=POSTMASTER_KEY,
+                        recipient_list=[ORDINAZIONI],
+                        fail_silently=False
+                    )
+
+                    self.request.session.set_expiry(1)
+                    messages.success(self.request, "La tua ordinazione è stata inoltrata")
+
+                    return redirect(reverse("home:home"))
+
+                except Exception as e:
+                    print(e)
+                    messages.warning(self.request, "Qualcosa è andato storto :( Ricontrolla la tua ordinazione")
+                    ord.delete()
+                    return render(self.request, self.template_name, context)
+
 
             else:
                 messages.warning(self.request, "Qualcosa è andato storto :( Ricontrolla la tua ordinazione")
@@ -128,9 +176,24 @@ class Checkout(View):
 
 
 def change_letta(request, id):
+
     item = get_object_or_404(Ordinazione, id=id)
-    item.letta = not item.letta
-    item.save()
+
+    if not item.letta:
+        template=get_template("ordinazioni/conferma_ordinazione.txt")
+
+        send_mail(
+            subject="ordinazione #{}".format(ord.id),
+            message=template.render(context=Context({"item": ord})),
+            from_email=POSTMASTER,
+            auth_user=POSTMASTER,
+            auth_password=POSTMASTER_KEY,
+            recipient_list=[ord.email],
+            fail_silently=False
+        )
+
+        item.letta = not item.letta
+        item.save()
 
     return redirect(reverse("ordinazioni:lista_ordinazioni"))
 
