@@ -37,6 +37,17 @@ overflow-y: auto !important;
 max-height: 200px !important;
 }
 
+.collapse-header [data-toggle="collapse"][aria-expanded="false"]::before {
+    content: "+";
+    float: left;
+}
+
+.collapse-header [data-toggle="collapse"]::before {
+    content: "-";
+    float: left;
+}
+
+
 @media (max-width: 576px) {
 html {
 font-size: 80%;
