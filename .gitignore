@@ -1,4 +1,4 @@
-/ordinazioni/settings/
+/ordinazioni/settings
 /ordinazioni/settings/**
 **/__init__.py
 /SeiFritto/emailsettings.py
