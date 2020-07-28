@@ -54,7 +54,7 @@
                 </span >
 
                 <span class="col-6 col-md-4">
-                    <h5> {{piatto.prezzo}} £</h5>
+                    <h5> {{piatto.prezzo}} €</h5>
                 </span>
 
 
@@ -94,7 +94,7 @@
                     </span >
 
                 <span class="col-4 col-md-4">
-                    <h5> {{item.prezzo}} £</h5>
+                    <h5> {{item.prezzo}} €</h5>
                 </span>
 
                 <span class="col-2 col-md-2">
@@ -126,7 +126,7 @@
                 </span>
 
                 <span class="text-center col-6 col-md-2" >
-                {{item.get_conto}} £
+                {{item.get_conto}} €
                 </span>
 
                 <span class="text-center col-6 col-md-3">
@@ -156,7 +156,7 @@
 
     <div id="cartHeader" class="collapse-header row" style="padding-top: 0.3rem; padding-bottom: 0.3rem;">
 
-        <h5 class="collapse-header col-6" aria-expanded="false" data-toggle="collapse" data-target="#carrello" style="margin-top: 0.4rem;"> {{carrello.get_conto}} £</h5>
+        <h5 class="collapse-header col-6" aria-expanded="false" data-toggle="collapse" data-target="#carrello" style="margin-top: 0.4rem;"> {{carrello.get_conto}} €</h5>
 
         <span class="col-6">
         {% if carrello.get_conto > 20 %}
@@ -166,7 +166,7 @@
 
             {% else %}
 
-            <p class=align-center" style="margin-bottom: 0.1rem; color: #191919;"> Consegne a partire da 20£ </p>
+            <p class=align-center" style="margin-bottom: 0.1rem; color: #191919;"> Consegne a partire da 20 € </p>
         {% endif %}
         </span>
 
