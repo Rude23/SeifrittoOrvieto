@@ -146,15 +146,15 @@ class Checkout(View):
                         fail_silently=False
                     )
 
-                    send_mail(
-                        subject="ordinazione #{}".format(ord.id),
-                        message=templateForMe.render(context={"item":ord}),
-                        from_email=ord.email,
-                        auth_user=POSTMASTER,
-                        auth_password=POSTMASTER_KEY,
-                        recipient_list=[ORDINAZIONI],
-                        fail_silently=False
-                    )
+                    #send_mail(
+                    #    subject="ordinazione #{}".format(ord.id),
+                    #    message=templateForMe.render(context={"item":ord}),
+                    #    from_email=ord.email,
+                    #    auth_user=POSTMASTER,
+                    #    auth_password=POSTMASTER_KEY,
+                    #    recipient_list=[ORDINAZIONI],
+                    #    fail_silently=False
+                    #)
 
                     self.request.session.set_expiry(1)
                     messages.success(self.request, "La tua ordinazione è stata inoltrata")

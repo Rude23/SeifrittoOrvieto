@@ -2,7 +2,7 @@ from django import forms
 
 from phonenumber_field.widgets import PhoneNumberInternationalFallbackWidget
 from phonenumber_field.formfields import PhoneNumberField
-from address.forms import AddressField, AddressWidget
+from captcha.fields import ReCaptchaField
 
 class OrdinazioneForm(forms.Form):
 
@@ -17,7 +17,9 @@ class OrdinazioneForm(forms.Form):
 
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'col-md-6'}))
 
-    indirizzo = AddressField(widget=AddressWidget(attrs={'class':'col-md-6'}))
+    #indirizzo = AddressField(widget=AddressWidget(attrs={'class':'col-md-6'}))
+
+    captcha=ReCaptchaField()
 
     citofono = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'col-md-6'}))
 
