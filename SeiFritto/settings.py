@@ -18,10 +18,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 with open(os.path.join(BASE_DIR, 'secretkey.txt')) as f:
     SECRET_KEY = f.read().strip()
 
-# google maps plugin
-with open(os.path.join(BASE_DIR, 'google_api_key.txt')) as f:
-    GOOGLE_API_KEY = f.read().strip()
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -30,6 +26,12 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 # read list of allowd hosts from domain.txt with ONE DOMAIN PER LINE
 with open(os.path.join(BASE_DIR, 'domain.txt')) as f:
     ALLOWED_HOSTS = f.read().split()
+
+with open(os.path.join(BASE_DIR, 'reCaptchaPrivateKey.txt')) as f:
+    RECAPTCHA_PRIVATE_KEY = f.read().strip()
+
+with open(os.path.join(BASE_DIR, 'reCaptchaPublicKey.txt')) as f:
+    RECAPTCHA_PUBLIC_KEY = f.read().strip()
 
 # Application definition
 INSTALLED_APPS = [
@@ -40,9 +42,9 @@ INSTALLED_APPS = [
     'manager',
 
     #third-party
+    'captcha',
     'crispy_forms',
     'phonenumber_field',
-    'address',
     'django_generate_secret_key',
 
     #default
@@ -56,6 +58,9 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
+    #chrome workaround
+    "django_samesite_none.middleware.SameSiteNoneMiddleware",
+    #default
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -131,11 +136,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtps.aruba.it"
-EMAIL_USE_SSL = True
-EMAIL_PORT = 465
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/

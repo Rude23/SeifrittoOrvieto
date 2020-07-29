@@ -3,7 +3,7 @@ from django.contrib.sessions.models import Session
 from django.shortcuts import reverse
 
 from phonenumber_field.modelfields import PhoneNumberField
-from address.models import AddressField
+
 
 from menu.models import Prodotto
 
@@ -71,7 +71,7 @@ class Ordinazione(models.Model):
 
     email = models.EmailField()
 
-    indirizzo = AddressField()
+    #indirizzo = AddressField()
 
     citofono = models.CharField(max_length=100)
 
