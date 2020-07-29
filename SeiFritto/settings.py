@@ -54,8 +54,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #site
+    'django.contrib.sites'
 ]
 
+#fucknows why it's necessary
+SITE_ID=1
 
 MIDDLEWARE = [
     #chrome workaround

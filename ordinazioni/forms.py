@@ -17,9 +17,9 @@ class OrdinazioneForm(forms.Form):
 
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'col-md-6'}))
 
-    #indirizzo = AddressField(widget=AddressWidget(attrs={'class':'col-md-6'}))
-
-    captcha=ReCaptchaField()
+    indirizzo = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'col-md-6'}), initial="Piazza Cahen")
+    località = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'col-md-6'}), initial="Orvieto")
+    # captcha=ReCaptchaField()
 
     citofono = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'col-md-6'}))
 
