@@ -71,7 +71,8 @@ class Ordinazione(models.Model):
 
     email = models.EmailField()
 
-    #indirizzo = AddressField()
+    indirizzo = models.CharField(max_length=100, default="Piazza Cahen")
+    località= models.CharField(max_length=100, default="Orvieto")
 
     citofono = models.CharField(max_length=100)
 

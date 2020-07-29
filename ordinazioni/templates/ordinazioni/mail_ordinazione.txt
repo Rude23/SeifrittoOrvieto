@@ -1,5 +1,6 @@
 {{item.nome}}  {{item.cognome}}
-{{item.indirizzo}}  {{item.citofono}}
+{{item.indirizzo}} {{item.località}}
+Interno: {{item.citofono}}
 {{item.email}} {{item.telefono}}
 {{item.note}}
 {% for prodotti in item.carrello.prodotti.all %}
@@ -7,4 +8,4 @@
 {% endfor %}
 {{item.conto}} €
 
-Per confermare di aver ricevuto l'ordinazione clicca {{item.get_change_letta_url}}
+Per confermare di aver ricevuto l'ordinazione clicca {{URI}}
