@@ -1,3 +1,5 @@
+/reCaptchaPublicKey.txt
+/reCaptchaPrivateKey.txt
 /ordinazioni/settings
 /ordinazioni/settings/**
 **/__init__.py
