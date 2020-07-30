@@ -59,6 +59,13 @@ class Carrello(models.Model):
 
         return sum([x.get_conto() for x in self.prodotti.all() if x.prodotto.get_disponibile()])
 
+class Localita(models.Model):
+
+    nome = models.CharField(max_length=100)
+
+    def __str__(self):
+
+        return self.nome
 
 class Ordinazione(models.Model):
 
@@ -72,7 +79,7 @@ class Ordinazione(models.Model):
     email = models.EmailField()
 
     indirizzo = models.CharField(max_length=100, default="Piazza Cahen")
-    località= models.CharField(max_length=100, default="Orvieto")
+    località= models.ForeignKey(Localita, on_delete=models.CASCADE)
 
     citofono = models.CharField(max_length=100)
 
