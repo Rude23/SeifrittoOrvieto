@@ -8,8 +8,7 @@ from.models import Localita
 
 class OrdinazioneForm(forms.Form):
 
-    nome = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'col-md-6'}))
-    cognome = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class':'col-md-6'}))
+    nome = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'col-md-6'}))
 
     telefono = PhoneNumberField(
         widget= PhoneNumberInternationalFallbackWidget(

@@ -71,8 +71,7 @@ class Ordinazione(models.Model):
 
     #ora=models.TimeField( default = datetime.now().time() )
 
-    nome=models.CharField(max_length=50)
-    cognome=models.CharField(max_length=50)
+    nome=models.CharField(max_length=100)
 
     telefono = PhoneNumberField()
 
