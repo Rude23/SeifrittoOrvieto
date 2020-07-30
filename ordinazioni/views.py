@@ -112,7 +112,6 @@ class Checkout(View):
 
             if form.is_valid():
                 nome = form.cleaned_data.get("nome")
-                cognome = form.cleaned_data.get("cognome")
                 telefono = form.cleaned_data.get("telefono")
                 email = form.cleaned_data.get("email")
                 indirizzo = form.cleaned_data.get("indirizzo")
@@ -123,7 +122,6 @@ class Checkout(View):
                 ord=Ordinazione(
                     #ora=ora,
                     nome=nome,
-                    cognome = cognome,
                     telefono =telefono,
                     email =email,
                     indirizzo = indirizzo,
@@ -150,12 +148,17 @@ class Checkout(View):
                         fail_silently=False
                     )
 
-                    current_site = Site.objects.get_current()
+                    map_query = "http://maps.google.com/?q=" + ord.indirizzo + '+' + ord.località
+                    map_query.replace(" ", "+")
+                    map_query.replace(",", "+")
+                    map_query.replace(",", "+")
 
                     send_mail(
                         subject="ordinazione #{}".format(ord.id),
-                        message=templateForMe.render(context={"item":ord, "URI":self.request.build_absolute_uri(reverse("ordinazioni:change_letta",
-                                                                                           kwargs={ 'id': ord.id}))}),
+                        message=templateForMe.render(context={"item":ord,
+                                                              "URI":self.request.build_absolute_uri(reverse("ordinazioni:change_letta",
+                                                                                           kwargs={ 'id': ord.id})),
+                                                              'query_map':map_query}),
                         from_email=ord.email,
                         auth_user=POSTMASTER,
                         auth_password=POSTMASTER_KEY,

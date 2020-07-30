@@ -8,4 +8,6 @@ Interno: {{item.citofono}}
 {% endfor %}
 {{item.conto}} €
 
+Per vedere la mappa dell' indirizzo clicca {{query_map}}
+
 Per confermare di aver ricevuto l'ordinazione clicca {{URI}}
