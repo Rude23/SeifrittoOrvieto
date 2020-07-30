@@ -3,7 +3,7 @@ from django.contrib.sessions.models import Session
 from django.shortcuts import reverse
 
 from phonenumber_field.modelfields import PhoneNumberField
-from address.models import AddressField
+
 
 from menu.models import Prodotto
 
@@ -59,19 +59,26 @@ class Carrello(models.Model):
 
         return sum([x.get_conto() for x in self.prodotti.all() if x.prodotto.get_disponibile()])
 
+class Localita(models.Model):
+
+    nome = models.CharField(max_length=100)
+
+    def __str__(self):
+
+        return self.nome
 
 class Ordinazione(models.Model):
 
     #ora=models.TimeField( default = datetime.now().time() )
 
-    nome=models.CharField(max_length=50)
-    cognome=models.CharField(max_length=50)
+    nome=models.CharField(max_length=100)
 
     telefono = PhoneNumberField()
 
     email = models.EmailField()
 
-    indirizzo = AddressField()
+    indirizzo = models.CharField(max_length=100, default="Piazza Cahen")
+    località= models.ForeignKey(Localita, on_delete=models.CASCADE)
 
     citofono = models.CharField(max_length=100)
 

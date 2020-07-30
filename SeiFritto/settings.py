@@ -10,19 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 import os
+from .emailsettings import *
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
-# load the key createb by django_generate_secret_key
+# load the key createdby django_generate_secret_key
 with open(os.path.join(BASE_DIR, 'secretkey.txt')) as f:
     SECRET_KEY = f.read().strip()
-
-# google maps plugin
-with open(os.path.join(BASE_DIR, 'google_api_key.txt')) as f:
-    GOOGLE_API_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -33,6 +27,12 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 with open(os.path.join(BASE_DIR, 'domain.txt')) as f:
     ALLOWED_HOSTS = f.read().split()
 
+with open(os.path.join(BASE_DIR, 'reCaptchaPrivateKey.txt')) as f:
+    RECAPTCHA_PRIVATE_KEY = f.read().strip()
+
+with open(os.path.join(BASE_DIR, 'reCaptchaPublicKey.txt')) as f:
+    RECAPTCHA_PUBLIC_KEY = f.read().strip()
+
 # Application definition
 INSTALLED_APPS = [
     #mine
@@ -42,9 +42,9 @@ INSTALLED_APPS = [
     'manager',
 
     #third-party
+    'captcha',
     'crispy_forms',
     'phonenumber_field',
-    'address',
     'django_generate_secret_key',
 
     #default
@@ -54,10 +54,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #site
+    'django.contrib.sites'
 ]
 
+#fucknows why it's necessary
+SITE_ID=1
 
 MIDDLEWARE = [
+    #chrome workaround
+    "django_samesite_none.middleware.SameSiteNoneMiddleware",
+    #default
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -142,3 +150,4 @@ TIME_ZONE = 'Europe/Rome'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
+

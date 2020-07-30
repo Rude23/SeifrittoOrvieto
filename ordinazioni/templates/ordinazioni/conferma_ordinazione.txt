@@ -1,0 +1,5 @@
+Gentile cliente,
+la sua ordinazione presso {{item.indirizzo}} è stata ricevuta.
+
+Grazie,
+Lo Staff di SeiFritto

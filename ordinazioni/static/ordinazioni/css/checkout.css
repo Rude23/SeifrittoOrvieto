@@ -7,6 +7,16 @@ body{
     padding-top:3.3rem;
 }
 
+.collapse-header [data-toggle="collapse"][aria-expanded="false"]::after {
+    content: "+";
+
+}
+
+.collapse-header [data-toggle="collapse"]::after {
+    content: "-";
+    float: left;
+}
+
 @media (max-width: 576px) {
 html {
 font-size: 80%;
