@@ -161,7 +161,7 @@
         <h5 class="collapse-header col-6" aria-expanded="false" data-toggle="collapse" data-target="#carrello" style="margin-top: 0.4rem;"> {{carrello.get_conto}} €</h5>
 
         <span class="col-6">
-        {% if carrello.get_conto > 20 %}
+        {% if carrello.get_conto >= 20 %}
             <a href="/ordinazioni/checkout" class="btn btn-primary" style="border-radius: 25px; border: 1px solid #191919;">
                 <p class=align-center" style="margin-bottom: 0.1rem; color: #191919;"> Ordina Adesso </p>
             </a>

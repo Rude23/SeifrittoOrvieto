@@ -19,10 +19,10 @@ class OrdinazioneForm(forms.Form):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class':'col-md-6'}))
 
     indirizzo = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'col-md-6'}), initial="Piazza Cahen")
-    località = forms.ModelChoiceField(queryset=Localita.objects.all(), empty_label=None, widget=forms.Select(attrs={'class': 'col-md-6'}), to_field_name="nome")
+    località = forms.ModelChoiceField(queryset=Localita.objects.all(),required=False, empty_label=None, widget=forms.Select(attrs={'class': 'col-md-6'}), to_field_name="nome")
     # captcha=ReCaptchaField()
 
-    citofono = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'col-md-6'}))
+    citofono = forms.CharField(required=False,max_length=100, widget=forms.TextInput(attrs={'class':'col-md-6'}))
 
     note = forms.CharField(
         required=False,

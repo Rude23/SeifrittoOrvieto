@@ -80,9 +80,9 @@ class Ordinazione(models.Model):
     indirizzo = models.CharField(max_length=100, default="Piazza Cahen")
     località= models.ForeignKey(Localita, on_delete=models.CASCADE)
 
-    citofono = models.CharField(max_length=100)
+    citofono = models.CharField(max_length=100, blank=True, null=True)
 
-    note=models.TextField()
+    note=models.TextField(blank=True, null=True)
 
     carrello = models.ForeignKey(Carrello, on_delete=models.CASCADE)
     conto = models.DecimalField(max_digits=6, decimal_places=2)

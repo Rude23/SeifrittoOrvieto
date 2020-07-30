@@ -1,5 +1,5 @@
 Gentile cliente,
-La sua ordinazione è stata accettata e le verrà consegnata all' indirizzo {{item.indirizzo}} quanto prima.
+La sua ordinazione è stata accettata e le verrà consegnata all' indirizzo {{item.indirizzo}}-{{item.località}} quanto prima.
 
 Grazie,
 Lo Staff di SeiFritto

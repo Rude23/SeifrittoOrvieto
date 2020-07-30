@@ -1,11 +1,15 @@
-{{item.nome}}  {{item.cognome}}
-{{item.indirizzo}} {{item.località}}
+ordinazione #{{item.id}}
+nome: {{item.nome}}
+indirizzo: {{item.indirizzo}} {{item.località}}
 Interno: {{item.citofono}}
-{{item.email}} {{item.telefono}}
-{{item.note}}
+Contatti: {{item.email}} {{item.telefono}}
+Note: {{item.note}}
+
+Comanda:
 {% for prodotti in item.carrello.prodotti.all %}
 {{prodotti.qtty}} X {{prodotti.prodotto.nome}}
 {% endfor %}
+Conto:
 {{item.conto}} €
 
 Per vedere la mappa dell' indirizzo clicca {{query_map}}

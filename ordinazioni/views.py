@@ -4,7 +4,6 @@ from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.views.generic import View, ListView
 from django.contrib import messages
 from django.contrib.sessions.models import Session
-from django.contrib.sites.models import Site
 from django.utils.safestring import mark_safe
 from django.core.mail import send_mail
 from django.template.loader import get_template
@@ -148,10 +147,10 @@ class Checkout(View):
                         fail_silently=False
                     )
 
-                    map_query = "http://maps.google.com/?q=" + ord.indirizzo + '+' + ord.località
-                    map_query.replace(" ", "+")
-                    map_query.replace(",", "+")
-                    map_query.replace(",", "+")
+                    map_query = "http://maps.google.com/?q=" + ord.indirizzo + '+' + ord.località.__str__()
+                    map_query = map_query.replace(" ", "+")
+                    map_query = map_query.replace(",", "+")
+                    map_query = map_query.replace(",", "+")
 
                     send_mail(
                         subject="ordinazione #{}".format(ord.id),
@@ -159,15 +158,15 @@ class Checkout(View):
                                                               "URI":self.request.build_absolute_uri(reverse("ordinazioni:change_letta",
                                                                                            kwargs={ 'id': ord.id})),
                                                               'query_map':map_query}),
-                        from_email=ord.email,
-                        auth_user=POSTMASTER,
-                        auth_password=POSTMASTER_KEY,
+                        from_email=POSTMASTER,
+                        auth_user=ORDINAZIONI,
+                        auth_password=ORDINAZIONI_KEY,
                         recipient_list=[ORDINAZIONI],
                         fail_silently=False
                     )
 
                     self.request.session.set_expiry(1)
-                    messages.success(self.request, "La tua ordinazione è stata inoltrata")
+                    messages.success(self.request, "La sua ordinazione è stata inoltrata, riceverà al più presto una mail di conferma")
 
                     return redirect(reverse("home:home"))
 
@@ -196,7 +195,7 @@ def change_letta(request, id):
 
         send_mail(
             subject="ordinazione #{} è in arrivo!".format(item.id),
-            message=template.render(context={"item": ord}),
+            message=template.render(context={"item": item}),
             from_email=ORDINAZIONI,
             auth_user=ORDINAZIONI,
             auth_password=ORDINAZIONI_KEY,

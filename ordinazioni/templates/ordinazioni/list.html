@@ -11,16 +11,19 @@
 {% for item in ordinazioni %}
 <div style="padding:2rem;">
 
-    <input type="checkbox" onchange="window.location.href='{{item.get_change_consegnata_url}}'" {%if item.consegnata%} checked {%endif%} value="Consegnata"/> Consegnata
-    <input type="checkbox" onchange="window.location.href='{{item.get_change_letta_url}}'" {%if item.letta%} checked {%endif%} value="Letta"/> Letta
-<p>{{item.nome}}  {{item.cognome}} </p>
-<p>{{item.indirizzo}}  {{item.citofono}}</p>
-<p>{{item.email}} {{item.telefono}}</p>
-<p>{{item.note}}</p>
-{% for prodotti in item.carrello.prodotti.all %}
-<p> {{prodotti.qtty}} X {{prodotti.prodotto.nome}}</p>
-{% endfor %}
-<p>{{item.conto}} €</p>
+    <input type="checkbox" onchange="window.location.href='{{item.get_change_consegnata_url}}'" {%if item.consegnata %} checked {%endif%} value="Consegnata"/> Consegnata
+    <input type="checkbox" onchange="window.location.href='{{item.get_change_letta_url}}'" {%if item.letta %} checked {%endif%} value="Letta"/> Letta
+    <p>ordinazione # {{item.id}} </p>
+    <p>nome: {{item.nome}}</p>
+    <p>indirizzo: {{item.indirizzo}} {{item.località}}</p>
+    <p>interno: {{item.citofono}}</p>
+    <p>recapiti: {{item.email}} {{item.telefono}}</p>
+    <p>note: {{item.note}}</p>
+    <p>comanda:</p>
+    {% for prodotti in item.carrello.prodotti.all %}
+    <p> {{prodotti.qtty}} X {{prodotti.prodotto.nome}}</p>
+    {% endfor %}
+    <p>conto: {{item.conto}} €</p>
 
 </div>
 {% endfor %}
