@@ -78,7 +78,7 @@ class Ordinazione(models.Model):
     email = models.EmailField()
 
     indirizzo = models.CharField(max_length=100, default="Piazza Cahen")
-    località= models.ForeignKey(Localita, on_delete=models.CASCADE)
+    #località= models.ForeignKey(Localita, on_delete=models.CASCADE)
 
     citofono = models.CharField(max_length=100, blank=True, null=True)
 

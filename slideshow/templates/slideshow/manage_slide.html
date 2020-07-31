@@ -11,18 +11,19 @@
 <div style="padding-top: 1rem;">
     <div class="row">
     {% for item in slide %}
-        <div class="col-12 col-md-6 col-lg-3" style="padding: 1em;">
+        <div class="col-12 col-md-6 col-lg-3" style="padding-top: 1em;">
+
             <div >
                 <img src="{{item.img.url}}" style="width: 100%"/>
             </div>
 
-            <div class="col-12 row" style="padding: 1em;">
+            <div class="row" style="padding: 1em;">
 
-                <h3 class="col-1">{{item.id}}</h3>
+                <h5 class="col-1">{{item.paginate_by}}</h5>
 
-                <span class="col-3">
+                <span class="col-3 row">
                 <input class="col-6" type="checkbox" onchange="window.location.href='{{item.get_change_show_url}}'" {%if item.show%} checked {%endif%} value="Mostra"/>
-                <h5 class="col-6">Mostra</h5>
+                <p class="col-6">Mostra</p>
                 </span>
 
 

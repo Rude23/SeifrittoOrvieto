@@ -29,9 +29,15 @@ class Categoria(Food):
 
     paginate_by=models.IntegerField(default=1, unique=True)
 
-    def save(self):
+    def save(self, *args, **kwargs):
 
-        self.get_unique_paginate_by()
+        if "update_fields" not in kwargs:
+
+            self.get_unique_paginate_by()
+
+        elif kwargs["update_fields"] is "paginated_by":
+
+            self.get_unique_paginate_by()
 
         super(Categoria,self).save()
 
