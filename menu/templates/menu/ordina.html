@@ -64,7 +64,7 @@
 
                 <span class="col-6 col-md-2 ">
                     {% if piatto.get_disponibile %}
-                    {%if isOpen %}
+                    {% if isOpen %}
                     <a href="{{piatto.get_add_to_cart_url}}"> <i class="fas fa-cart-plus vcenter" style="font-size: 135%"></i></a>
                     {%  endif %}
                     {%  endif %}

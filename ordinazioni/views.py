@@ -120,7 +120,7 @@ class Checkout(View):
                     telefono = form.cleaned_data.get("telefono")
                     email = form.cleaned_data.get("email")
                     indirizzo = form.cleaned_data.get("indirizzo")
-                    #località = form.cleaned_data.get("località")
+                    località = form.cleaned_data.get("località")
                     citofono = form.cleaned_data.get("citofono")
                     note = form.cleaned_data.get("note")
 
@@ -130,7 +130,7 @@ class Checkout(View):
                         telefono=telefono,
                         email=email,
                         indirizzo=indirizzo,
-                        #località=località,
+                        località=località,
                         citofono=citofono,
                         note=note,
                         carrello=context['carrello'],
