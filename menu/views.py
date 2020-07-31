@@ -1,20 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, reverse, redirect
 from django.utils.safestring import mark_safe
-from django.db import transaction
 
 from django.contrib import messages
 from django.contrib.sessions.models import Session
-from django.views.generic import View, ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView
 
+from ordinazioni.time_extra import isOpen
 from ordinazioni.models import Carrello
 
 from .models import Prodotto, Categoria, Offerta, Food, Piatto
 from .forms import FormCategoria, FormPiatto, FormOfferta
-
-from ordinazioni.models import Ordinazione
 
 # Create your views here.
 
@@ -113,6 +110,7 @@ class MenuOrdinato(ListView):
 
         context['carrello'] = cart  # add extra field to the context
         context['offerte']=Offerta.objects.filter(in_menu=True)
+        context['isOpen']=isOpen()
 
         return context
 

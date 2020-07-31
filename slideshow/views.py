@@ -1,12 +1,18 @@
 from __future__ import unicode_literals
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import CreateView
+
+from ordinazioni.time_extra import isOpen
+
 from.models import Slide
 from.forms import SlideForm
 
 def home_view(request):
 
-    context={'slide': Slide.objects.filter(show=True)}
+    context={
+        'slide': Slide.objects.filter(show=True),
+        'isOpen': isOpen()
+             }
 
     return render(request , "slideshow/home.html", context)
 

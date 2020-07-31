@@ -11,6 +11,8 @@ from django.template.loader import get_template
 
 from .models import Carrello, Ordinazione, Nel_Carrello
 from .forms import OrdinazioneForm
+from .time_extra import isOpen
+
 
 from menu.models import Offerta, Prodotto
 
@@ -90,101 +92,110 @@ class Checkout(View):
 
     def get(self, *args, **kwargs):
 
-        print("GET")
+        if isOpen():
+            context = self.get_context_data()
+            context['form'] = OrdinazioneForm()
 
-        context = self.get_context_data()
-        context['form'] = OrdinazioneForm()
+            return render(self.request, self.template_name, context)
 
-        return render(self.request, self.template_name, context)
+        else:
+            return redirect(reverse("home:home"))
+
 
     def post(self, *args, **kwargs):
 
-        context = self.get_context_data()
-
-        [x.get_disponibile() for x in Offerta.objects.filter(in_menu=True)]
-        if all([x.prodotto.get_disponibile() for x in context['carrello'].prodotti.all()]):
-
-            form=OrdinazioneForm(self.request.POST or None)
-            context['form'] = form
+        if isOpen():
+            context = self.get_context_data()
 
             [x.get_disponibile() for x in Offerta.objects.filter(in_menu=True)]
+            if all([x.prodotto.get_disponibile() for x in context['carrello'].prodotti.all()]):
 
-            if form.is_valid():
-                nome = form.cleaned_data.get("nome")
-                telefono = form.cleaned_data.get("telefono")
-                email = form.cleaned_data.get("email")
-                indirizzo = form.cleaned_data.get("indirizzo")
-                località= form.cleaned_data.get("località")
-                citofono = form.cleaned_data.get("citofono")
-                note = form.cleaned_data.get("note")
+                form = OrdinazioneForm(self.request.POST or None)
+                context['form'] = form
 
-                ord=Ordinazione(
-                    #ora=ora,
-                    nome=nome,
-                    telefono =telefono,
-                    email =email,
-                    indirizzo = indirizzo,
-                    località = località,
-                    citofono = citofono,
-                    note = note,
-                    carrello=context['carrello'],
-                    conto=context['carrello'].get_conto()
+                [x.get_disponibile() for x in Offerta.objects.filter(in_menu=True)]
+
+                if form.is_valid():
+                    nome = form.cleaned_data.get("nome")
+                    telefono = form.cleaned_data.get("telefono")
+                    email = form.cleaned_data.get("email")
+                    indirizzo = form.cleaned_data.get("indirizzo")
+                    località = form.cleaned_data.get("località")
+                    citofono = form.cleaned_data.get("citofono")
+                    note = form.cleaned_data.get("note")
+
+                    ord = Ordinazione(
+                        # ora=ora,
+                        nome=nome,
+                        telefono=telefono,
+                        email=email,
+                        indirizzo=indirizzo,
+                        località=località,
+                        citofono=citofono,
+                        note=note,
+                        carrello=context['carrello'],
+                        conto=context['carrello'].get_conto()
                     )
 
-                ord.save()
+                    ord.save()
 
-                try:
-                    templateForCliente = get_template("ordinazioni/conferma_ordinazione.txt")
-                    templateForMe = get_template("ordinazioni/mail_ordinazione.txt")
+                    try:
+                        templateForCliente = get_template("ordinazioni/conferma_ordinazione.txt")
+                        templateForMe = get_template("ordinazioni/mail_ordinazione.txt")
 
-                    send_mail(
-                        subject="ordinazione #{}".format(ord.id),
-                        message=templateForCliente.render(context={"item":ord}),
-                        from_email=ORDINAZIONI,
-                        auth_user=ORDINAZIONI,
-                        auth_password=ORDINAZIONI_KEY,
-                        recipient_list=[ord.email],
-                        fail_silently=False
-                    )
+                        send_mail(
+                            subject="ordinazione #{}".format(ord.id),
+                            message=templateForCliente.render(context={"item": ord}),
+                            from_email=ORDINAZIONI,
+                            auth_user=ORDINAZIONI,
+                            auth_password=ORDINAZIONI_KEY,
+                            recipient_list=[ord.email],
+                            fail_silently=False
+                        )
 
-                    map_query = "http://maps.google.com/?q=" + ord.indirizzo + '+' + ord.località.__str__()
-                    map_query = map_query.replace(" ", "+")
-                    map_query = map_query.replace(",", "+")
-                    map_query = map_query.replace(",", "+")
+                        map_query = "http://maps.google.com/?q=" + ord.indirizzo + '+' + ord.località.__str__()
+                        map_query = map_query.replace(" ", "+")
+                        map_query = map_query.replace(",", "+")
+                        map_query = map_query.replace(",", "+")
 
-                    send_mail(
-                        subject="ordinazione #{}".format(ord.id),
-                        message=templateForMe.render(context={"item":ord,
-                                                              "URI":self.request.build_absolute_uri(reverse("ordinazioni:change_letta",
-                                                                                           kwargs={ 'id': ord.id})),
-                                                              'query_map':map_query}),
-                        from_email=POSTMASTER,
-                        auth_user=ORDINAZIONI,
-                        auth_password=ORDINAZIONI_KEY,
-                        recipient_list=[ORDINAZIONI],
-                        fail_silently=False
-                    )
+                        send_mail(
+                            subject="ordinazione #{}".format(ord.id),
+                            message=templateForMe.render(context={"item": ord,
+                                                                  "URI": self.request.build_absolute_uri(
+                                                                      reverse("ordinazioni:change_letta",
+                                                                              kwargs={'id': ord.id})),
+                                                                  'query_map': map_query}),
+                            from_email=POSTMASTER,
+                            auth_user=ORDINAZIONI,
+                            auth_password=ORDINAZIONI_KEY,
+                            recipient_list=[ORDINAZIONI],
+                            fail_silently=False
+                        )
 
-                    self.request.session.set_expiry(1)
-                    messages.success(self.request, "La sua ordinazione è stata inoltrata, riceverà al più presto una mail di conferma")
+                        self.request.session.set_expiry(1)
+                        messages.success(self.request,
+                                         "La sua ordinazione è stata inoltrata, riceverà al più presto una mail di conferma")
 
-                    return redirect(reverse("home:home"))
+                        return redirect(reverse("home:home"))
 
-                except Exception as e:
+                    except Exception as e:
 
-                    print("Exception {}".format(e))
+                        print("Exception {}".format(e))
 
+                        messages.warning(self.request, "Qualcosa è andato storto :( Ricontrolla la tua ordinazione")
+                        ord.delete()
+                        return render(self.request, self.template_name, context)
+
+
+                else:
                     messages.warning(self.request, "Qualcosa è andato storto :( Ricontrolla la tua ordinazione")
-                    ord.delete()
                     return render(self.request, self.template_name, context)
 
-
             else:
-                messages.warning(self.request, "Qualcosa è andato storto :( Ricontrolla la tua ordinazione")
-                return render(self.request,self.template_name, context)
+                return render(self.request, self.template_name, context)
 
-        else: return render(self.request,self.template_name, context)
-
+        else:
+            return redirect(reverse("home:home"))
 
 def change_letta(request, id):
 
@@ -217,74 +228,88 @@ def change_consegnata(request, id):
 
 def add_to_cart(request, nome):
 
-    item=get_object_or_404(Prodotto, nome=nome)
+    if isOpen():
+        item = get_object_or_404(Prodotto, nome=nome)
 
-    key=Session.objects.get(session_key=request.session.session_key)
-    carrello_qs = Carrello.objects.get_or_create(
-        session_id=Session.objects.get_or_create(session_key=key),
-        defaults={'session_key': key}
-    )[0]
+        key = Session.objects.get(session_key=request.session.session_key)
+        carrello_qs = Carrello.objects.get_or_create(
+            session_id=Session.objects.get_or_create(session_key=key),
+            defaults={'session_key': key}
+        )[0]
 
-    order_item, created = Nel_Carrello.objects.get_or_create(
-        prodotto=item,
-        session_id=key,
-        defaults={'session_id': key}
-    )
+        order_item, created = Nel_Carrello.objects.get_or_create(
+            prodotto=item,
+            session_id=key,
+            defaults={'session_id': key}
+        )
 
-    if not created:
-        order_item.qtty += 1
-        order_item.save()
+        if not created:
+            order_item.qtty += 1
+            order_item.save()
+        else:
+            carrello_qs.prodotti.add(order_item)
+
+        carrello_qs.save()
+        return redirect(reverse("menu:menu_ordinato"))
+
     else:
-        carrello_qs.prodotti.add(order_item)
+        return redirect(reverse("home:home"))
 
-    carrello_qs.save()
-    return redirect(reverse("menu:menu_ordinato"))
+
 
 def remove_from_cart(request, nome):
+    if isOpen():
+        item = get_object_or_404(Prodotto, nome=nome)
+        key = Session.objects.get(session_key=request.session.session_key)
+        carrello_qs = Carrello.objects.get_or_create(
+            session_id=Session.objects.get_or_create(session_key=key),
+            defaults={'session_key': key}
+        )[0]
 
-    item=get_object_or_404(Prodotto, nome=nome)
-    key=Session.objects.get(session_key=request.session.session_key)
-    carrello_qs = Carrello.objects.get_or_create(
-        session_id=Session.objects.get_or_create(session_key=key),
-        defaults={'session_key': key}
-    )[0]
+        order_item, created = Nel_Carrello.objects.get_or_create(
+            prodotto=item,
+            session_id=key,
+            defaults={'session_id': key}
+        )
 
-    order_item, created = Nel_Carrello.objects.get_or_create(
-        prodotto=item,
-        session_id=key,
-        defaults={'session_id': key}
-    )
+        if not created:
+            order_item.qtty -= 1
+            order_item.save()
 
-    if not created:
+        carrello_qs.save()
 
-        order_item.qtty -= 1
-        order_item.save()
+        return redirect(reverse("menu:menu_ordinato"))
 
-    carrello_qs.save()
+    else:
+        return redirect(reverse("home:home"))
 
-    return redirect(reverse("menu:menu_ordinato"))
 
 def delete_from_cart(request, nome):
-    item = get_object_or_404(Prodotto, nome=nome)
-    key = Session.objects.get(session_key=request.session.session_key)
-    carrello_qs = Carrello.objects.get_or_create(
-        session_id=Session.objects.get_or_create(session_key=key),
-        defaults={'session_key': key}
-    )[0]
+    if isOpen():
+        item = get_object_or_404(Prodotto, nome=nome)
+        key = Session.objects.get(session_key=request.session.session_key)
+        carrello_qs = Carrello.objects.get_or_create(
+            session_id=Session.objects.get_or_create(session_key=key),
+            defaults={'session_key': key}
+        )[0]
 
-    order_item, created = Nel_Carrello.objects.get_or_create(
-        prodotto=item,
-        session_id=key,
-        defaults={'session_id': key}
-    )
+        order_item, created = Nel_Carrello.objects.get_or_create(
+            prodotto=item,
+            session_id=key,
+            defaults={'session_id': key}
+        )
 
-    if not created:
-        order_item.qtty = 0
-        order_item.save()
+        if not created:
+            order_item.qtty = 0
+            order_item.save()
 
-    carrello_qs.save()
+        carrello_qs.save()
+        return redirect(reverse("menu:menu_ordinato"))
 
-    return redirect(reverse("menu:menu_ordinato"))
+    else:
+        return redirect(reverse("home:home"))
+
+
 
 def clear(request):
 

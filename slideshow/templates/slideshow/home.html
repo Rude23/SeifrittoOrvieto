@@ -22,7 +22,13 @@
              <ul class="navbar-nav ml-auto">
 
                  <li class="nav-item">
-                     <a class="nav-link"  href="menu/menu_ordinato"> Ordina onLine </a>
+                     <a class="nav-link"  href="menu/menu_ordinato">
+                         {% if isOpen %}
+                         Ordina onLine
+                         {% else %}
+                         il Menu
+                         {% endif %}
+                     </a>
                  </li >
                  
                  <li class="nav-item">
@@ -139,10 +145,12 @@
 
         <div class="col-12">
             <hr class="light">
-
-            <h6 class="col-12"> Python 3.6  | Django 2.2 </h6>
-
+            <a href="https://github.com/Rude23/SeifrittoOrvieto"
+                         target="_blank" rel="noopener noreferrer" >
+                <h6 style="color: #f5f5f5;" class="col-12"> Python 3.6 | Django 2.2 </h6>
+            </a>
             <hr class="light">
+
         </div>
 
     </div>

@@ -144,10 +144,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
+USE_I18N = False
+USE_L10N = False
+USE_TZ = True
+
 PHONENUMBER_DEFAULT_REGION= 'IT'
 LANGUAGE_CODE = 'it'
 TIME_ZONE = 'Europe/Rome'
-USE_I18N = True
-USE_L10N = True
-USE_TZ = True
+#TIME_ZONE = 'UTC'
 
