@@ -35,7 +35,7 @@ class Nel_Carrello(models.Model):
 
     def save(self, *args, **kwargs):
 
-        if self.qtty<1:
+        if self.qtty < 1:
             self.delete()
 
         else:
