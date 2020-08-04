@@ -20,6 +20,8 @@ class OrdinazioneForm(forms.Form):
 
     indirizzo = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'col-md-6'}), initial="Piazza Cahen")
     località = forms.ModelChoiceField(queryset=Localita.objects.all(),required=False, empty_label=None, widget=forms.Select(attrs={'class': 'col-md-6'}), to_field_name="nome")
+
+    # decomment in production
     # captcha=ReCaptchaField()
 
     citofono = forms.CharField(required=False,max_length=100, widget=forms.TextInput(attrs={'class':'col-md-6'}))

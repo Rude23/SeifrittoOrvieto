@@ -1,4 +1,4 @@
-from datetime import time
+from datetime import time, date
 from django import template
 from django.utils import timezone
 
@@ -13,6 +13,9 @@ register=template.Library()
 
 @register.filter(name="isOpen")
 def isOpen():
+
+    if date.today().isoweekday() == 4:
+	return False
 
     now=timezone.localtime(timezone.now()).time()
 
