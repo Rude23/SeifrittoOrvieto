@@ -40,11 +40,11 @@
 {% block content %}
 <div id="menu" class="container-fluid bg-light text-center" style="padding-top: 1rem; padding-bottom: 0.1rem; border-radius: 25px; border: 2px solid #191919;">
     {% for item in qs %}
-    <h2 id="{{item.nome}}"> {{item.nome}} </h2>
+    <h2 id="{{item.nome}}" style="scroll-margin-top: 100px;"> {{item.nome}} </h2>
         <ul>
             {% for piatto in item.get_prodotti %}
             {% if piatto.in_menu %}
-            <li id="{{piatto.nome}}" class="row">
+            <li id="{{piatto.nome}}" style="scroll-margin-top: 100px;" class="row">
                 <span class="col-12 col-md-6 ">
                 {% if piatto.get_disponibile %}
                     <h5>{{piatto.nome}}</h5>
@@ -75,16 +75,16 @@
             <hr class="light" style="margin-top: 0.1rem; margin-bottom: 0.1rem; border-top: 1px solid ##191919; width: 99%;">
         </ul>
     {% endfor %}
-    <h2 id="OfferteSpeciali">Offerte speciali</h2>
+    <h2 id="OfferteSpeciali" style="scroll-margin-top: 100px;">Offerte speciali</h2>
         <ul>
             {% for item in offerte %}
             {% if item.in_menu %}
                 <li class="row">
                     <span class="col-6 col-md-6">
                         {% if item.get_disponibile %}
-                        <h5>{{item.nome}}</h5>
+                        <h5 style="scroll-margin-top: 100px;">{{item.nome}}</h5>
                         {% else %}
-                        <del><h5>{{item.nome}}</h5></del>
+                        <del><h5 style="scroll-margin-top: 100px;">{{item.nome}}</h5></del>
                         {% endif %}
                             <ul class="ml-auto" style="list-style-type:none;">
                             {% for piatto in item.prodotti.all %}
