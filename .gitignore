@@ -1,7 +1,7 @@
 /reCaptchaPublicKey.txt
 /reCaptchaPrivateKey.txt
-/ordinazioni/settings
-/ordinazioni/settings/**
+/ordinazioni/mailCredentials
+/ordinazioni/mailCredentials/**
 **/__init__.py
 /SeiFritto/emailsettings.py
 /domain.txt
