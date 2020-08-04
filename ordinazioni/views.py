@@ -250,7 +250,7 @@ def add_to_cart(request, nome):
             carrello_qs.prodotti.add(order_item)
 
         carrello_qs.save()
-        return redirect(reverse("menu:menu_ordinato"))
+        return redirect(reverse("menu:menu_ordinato")+"#{}".format(item.nome))
 
     else:
         return redirect(reverse("home:home"))
@@ -278,7 +278,7 @@ def remove_from_cart(request, nome):
 
         carrello_qs.save()
 
-        return redirect(reverse("menu:menu_ordinato"))
+        return redirect(reverse("menu:menu_ordinato")+"#{}".format(item.nome))
 
     else:
         return redirect(reverse("home:home"))
@@ -304,7 +304,7 @@ def delete_from_cart(request, nome):
             order_item.save()
 
         carrello_qs.save()
-        return redirect(reverse("menu:menu_ordinato"))
+        return redirect(reverse("menu:menu_ordinato")+"#{}".format(item.nome))
 
     else:
         return redirect(reverse("home:home"))
