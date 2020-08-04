@@ -27,7 +27,7 @@ def change_show(request,id):
     qs=Slide.objects.get(id=id)
 
     qs.show = not qs.show
-    qs.save()
+    qs.save(update_fields=["show"])
 
     return redirect(reverse('slideshow:manage_view'))
 

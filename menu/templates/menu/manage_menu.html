@@ -16,7 +16,7 @@
     <div class="container-fluid">
     <div class="row">
 
-        <h1 class="col-12 col-md-4">{{item.paginate_by}}--{{item}}</h1>
+        <h1  id="{{item}}" class="col-12 col-md-4">{{item.paginate_by}}--{{item}}</h1>
 
         <span class="col-4 col-md-2">
             <i class="fas fa-arrow-up fa-2x" onclick="window.location.href='{{item.get_move_up_url}}'"></i>
@@ -44,7 +44,7 @@
         {% for piatto in item.get_prodotti %}
                 <div class="container-fluid">
                 <div class="row">
-                <h5 class="col-12 col-md-4">
+                <h5 id="{{piatto}}"class="col-12 col-md-4">
                     {{piatto}}
                 </h5>
 

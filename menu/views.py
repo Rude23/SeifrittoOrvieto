@@ -133,7 +133,7 @@ def change_disponibile(request, nome):
 
     item = get_object_or_404(Piatto, nome=nome)
     item.disponibile = not item.disponibile
-    item.save()
+    item.save(update_fields=["disponibile"])
 
     return redirect(reverse("menu:manage_menu")+"#{}".format(item.nome))
 
@@ -141,7 +141,7 @@ def change_disponibile(request, nome):
 def change_in_menu(request, nome):
     item = get_object_or_404(Prodotto, nome=nome)
     item.in_menu = not item.in_menu
-    item.save()
+    item.save(update_fields=["in_menu"])
 
     return redirect(reverse("menu:manage_menu")+"#{}".format(item.nome))
 
@@ -149,7 +149,7 @@ def change_in_menu(request, nome):
 def change_show(request, nome):
     item = get_object_or_404(Categoria, nome=nome)
     item.show = not item.show
-    item.save()
+    item.save(update_fields=["show"])
 
     return redirect(reverse("menu:manage_menu")+"#{}".format(item.nome))
 
@@ -187,11 +187,11 @@ def move_up(request,nome):
         prev.paginate_by=0
         self.paginate_by=prev_paginate_by
 
-        prev.save()
-        self.save()
+        prev.save(update_fields=["paginate_by"])
+        self.save(update_fields=["paginate_by"])
 
         prev.paginate_by=self_paginate_by
-        prev.save()
+        prev.save(update_fields=["paginate_by"])
 
         return redirect(reverse("menu:manage_menu")+"#{}".format(self.nome))
 
@@ -211,12 +211,12 @@ def move_down(request, nome):
         next.paginate_by=0
         self.paginate_by = next_paginate_by
 
-        next.save()
-        self.save()
+        next.save(update_fields=["paginate_by"])
+        self.save(update_fields=["paginate_by"])
 
 
         next.paginate_by=self_paginate_by
-        next.save()
+        next.save(update_fields=["paginate_by"])
 
         return redirect(reverse("menu:manage_menu")+"#{}".format(self.nome))
 

@@ -21,8 +21,8 @@
 
                 <h5 class="col-1">{{item.paginate_by}}</h5>
 
-                <span class="col-3 row">
-                <input class="col-6" type="checkbox" onchange="window.location.href='{{item.get_change_show_url}}'" {%if item.show%} checked {%endif%} value="Mostra"/>
+                <span class="col-3">
+                <input class="col-6" type="checkbox" onchange="window.location.href='{{item.get_change_show_url}}'" {%if item.show%} checked {%endif%}/>
                 <p class="col-6">Mostra</p>
                 </span>
 
