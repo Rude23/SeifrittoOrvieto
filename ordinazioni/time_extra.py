@@ -4,7 +4,7 @@ from django.utils import timezone
 
 #quick&dirty
 OPEN_MORNING = time(hour=11, minute=30)
-CLOSING_MORNING = time(hour=19,minute=0)
+CLOSING_MORNING = time(hour=15,minute=0)
 
 OPEN_AFTERNOON = time(17,30)
 CLOSING_AFTERNOON = time(21,30)
