@@ -166,8 +166,8 @@ class Checkout(View):
                                                                               kwargs={'id': ord.id})),
                                                                   'query_map': map_query}),
                             from_email=POSTMASTER,
-                            auth_user=ORDINAZIONI,
-                            auth_password=ORDINAZIONI_KEY,
+                            auth_user=POSTMASTER,
+                            auth_password=POSTMASTER_KEY,
                             recipient_list=[ORDINAZIONI],
                             fail_silently=False
                         )
@@ -179,8 +179,6 @@ class Checkout(View):
                         return redirect(reverse("home:home"))
 
                     except Exception as e:
-
-                        print("Exception {}".format(e))
 
                         messages.warning(self.request, "Qualcosa è andato storto :( Ricontrolla la tua ordinazione")
                         ord.delete()
