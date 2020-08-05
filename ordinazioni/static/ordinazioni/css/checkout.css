@@ -3,8 +3,14 @@ html, body, header{
     color: #191919;
 }
 
-body{
-    padding-top:3.3rem;
+#cart{
+overflow-x: auto !important;
+overflow-y: auto !important;
+max-height: 200px !important;
+}
+
+#form{
+overflow-y: scroll;
 }
 
 .collapse-header [data-toggle="collapse"][aria-expanded="false"]::after {

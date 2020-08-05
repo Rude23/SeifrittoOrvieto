@@ -11,7 +11,7 @@
 {% block title %}Checkout{% endblock %}
 
 {% block navbar %}
-<div id="cart" class="bg-light text-center container-fluid fixed-top collapse-div" style="border-radius: 0px 0px 25px 25px; border: 2px solid #191919; ">
+<div id="cart" class="bg-light text-center container-fluid collapse-div" style="border-radius: 0px 0px 25px 25px; border: 2px solid #191919; ">
 
     <div id="cartHeader" class="collapse-header row" style="padding-top: 0.3rem; padding-bottom: 0.3rem">
 
@@ -69,15 +69,13 @@
 
 
         <hr class="light" style="margin-top: 0.1rem; margin-bottom: 0.1rem; border-top: 1px solid ##191919; width: 99%;">
-
     </div>
 
 </div>
 {% endblock %}
 
 {%block content%}
-<div>
-    <div class="container-fluid bg-light" style="padding-top: 1rem; padding-bottom: 0.9rem; border-radius: 25px; border: 2px solid #191919;">
+    <div id="form" class="container-fluid bg-light" style="padding-top: 1rem; padding-bottom: 0.9rem; border-radius: 25px; border: 2px solid #191919;">
         <form action="" method="POST">
             {% csrf_token %}
             {{form|crispy}}
@@ -85,5 +83,4 @@
             <input class="btn btn-primary" style="margin: 0.1rem; border-radius: 25px; border: 1px solid #191919; text-color: #191919;" type="submit" value="Invia l'ordine">
         </form>
     </div>
-</div>
 {% endblock %}
