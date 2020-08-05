@@ -11,7 +11,7 @@
 <div style="padding-top: 1rem;">
     <div class="row">
     {% for item in slide %}
-        <div class="col-12 col-md-6 col-lg-3" style="padding-top: 1em;">
+        <div id="{{item.id}}" class="col-12 col-md-6 col-lg-3" style="padding-top: 1em; scroll-margin-top: 200px;">
 
             <div >
                 <img src="{{item.img.url}}" style="width: 100%"/>

@@ -29,7 +29,7 @@ def change_show(request,id):
     qs.show = not qs.show
     qs.save(update_fields=["show"])
 
-    return redirect(reverse('slideshow:manage_view'))
+    return redirect(reverse('slideshow:manage_view')+"#{}".format(qs.id))
 
 def move_up(request,id):
 
@@ -38,7 +38,7 @@ def move_up(request,id):
 
     if len(prev) is 0:
 
-        return redirect(reverse("slideshow:manage_view"))
+        return redirect(reverse("slideshow:manage_view")+"#{}".format(self.id))
 
     else:
         prev = prev[-1]
@@ -54,7 +54,7 @@ def move_up(request,id):
         prev.paginate_by=self_paginate_by
         prev.save(update_fields=["paginate_by"])
 
-        return redirect(reverse("slideshow:manage_view"))
+        return redirect(reverse("slideshow:manage_view")+"#{}".format(self.id))
 
 def move_down(request, id):
 
@@ -62,7 +62,7 @@ def move_down(request, id):
     next=[x for x in Slide.objects.all().order_by('paginate_by') if x.paginate_by>self.paginate_by]
 
     if len(next) is 0:
-        return redirect(reverse("slideshow:manage_view"))
+        return redirect(reverse("slideshow:manage_view")+"#{}".format(self.id))
 
     else:
         next=next[0]
@@ -79,7 +79,7 @@ def move_down(request, id):
         next.paginate_by=self_paginate_by
         next.save(update_fields=["paginate_by"])
 
-        return redirect(reverse("slideshow:manage_view"))
+        return redirect(reverse("slideshow:manage_view")+"#{}".format(self.id))
 
 def delete_slide(request,id):
     self = get_object_or_404(Slide, id=id)
