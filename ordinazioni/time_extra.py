@@ -15,7 +15,7 @@ register=template.Library()
 def isOpen():
 
     if date.today().isoweekday() == 4:
-	    return False
+        return False
 
     else:
         now = timezone.localtime(timezone.now()).time()

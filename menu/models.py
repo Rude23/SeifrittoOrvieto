@@ -31,7 +31,11 @@ class Categoria(Food):
 
     def save(self, *args, **kwargs):
 
+        print(kwargs)
+
         if "update_fields" not in kwargs:
+
+            print(True)
 
             self.get_unique_paginate_by()
 

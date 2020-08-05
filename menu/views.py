@@ -133,25 +133,25 @@ def change_disponibile(request, nome):
 
     item = get_object_or_404(Piatto, nome=nome)
     item.disponibile = not item.disponibile
-    item.save()
+    item.save(update_fields=["disponibile"])
 
-    return redirect(reverse("menu:manage_menu"))
+    return redirect(reverse("menu:manage_menu")+"#{}".format(item.nome))
 
 
 def change_in_menu(request, nome):
     item = get_object_or_404(Prodotto, nome=nome)
     item.in_menu = not item.in_menu
-    item.save()
+    item.save(update_fields=["in_menu"])
 
-    return redirect(reverse("menu:manage_menu"))
+    return redirect(reverse("menu:manage_menu")+"#{}".format(item.nome))
 
 
 def change_show(request, nome):
     item = get_object_or_404(Categoria, nome=nome)
     item.show = not item.show
-    item.save()
+    item.save(update_fields=["show"])
 
-    return redirect(reverse("menu:manage_menu"))
+    return redirect(reverse("menu:manage_menu")+"#{}".format(item.nome))
 
 
 def prompt_delete(request, nome, id):
@@ -177,7 +177,7 @@ def move_up(request,nome):
 
     if len(prev) is 0:
 
-        return redirect(reverse("menu:manage_menu"))
+        return redirect(reverse("menu:manage_menu")+"#{}".format(self.nome))
 
     else:
         prev = prev[-1]
@@ -187,13 +187,13 @@ def move_up(request,nome):
         prev.paginate_by=0
         self.paginate_by=prev_paginate_by
 
-        prev.save()
-        self.save()
+        prev.save(update_fields=["paginate_by"])
+        self.save(update_fields=["paginate_by"])
 
         prev.paginate_by=self_paginate_by
-        prev.save()
+        prev.save(update_fields=["paginate_by"])
 
-        return redirect(reverse("menu:manage_menu"))
+        return redirect(reverse("menu:manage_menu")+"#{}".format(self.nome))
 
 def move_down(request, nome):
 
@@ -201,7 +201,7 @@ def move_down(request, nome):
     next=[x for x in Categoria.objects.all().order_by('paginate_by') if x.paginate_by>self.paginate_by]
 
     if len(next) is 0:
-        return redirect(reverse("menu:manage_menu"))
+        return redirect(reverse("menu:manage_menu")+"#{}".format(self.nome))
 
     else:
         next=next[0]
@@ -211,12 +211,12 @@ def move_down(request, nome):
         next.paginate_by=0
         self.paginate_by = next_paginate_by
 
-        next.save()
-        self.save()
+        next.save(update_fields=["paginate_by"])
+        self.save(update_fields=["paginate_by"])
 
 
         next.paginate_by=self_paginate_by
-        next.save()
+        next.save(update_fields=["paginate_by"])
 
-        return redirect(reverse("menu:manage_menu"))
+        return redirect(reverse("menu:manage_menu")+"#{}".format(self.nome))
 

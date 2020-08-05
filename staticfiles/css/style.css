@@ -4,6 +4,17 @@ html {
 font-family:'Poppins', sans-sarif;
 }
 
+body {
+   margin: 0;
+   height: 100%;
+   overflow-y:hide;
+}
+
+#body-wrap {
+   height: 100vh;
+   display: grid;
+   grid-template-rows: min-content auto min-content;
+}
 
 @media (max-width: 576px) {
 html {

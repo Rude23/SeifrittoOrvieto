@@ -166,8 +166,8 @@ class Checkout(View):
                                                                               kwargs={'id': ord.id})),
                                                                   'query_map': map_query}),
                             from_email=POSTMASTER,
-                            auth_user=ORDINAZIONI,
-                            auth_password=ORDINAZIONI_KEY,
+                            auth_user=POSTMASTER,
+                            auth_password=POSTMASTER_KEY,
                             recipient_list=[ORDINAZIONI],
                             fail_silently=False
                         )
@@ -179,8 +179,6 @@ class Checkout(View):
                         return redirect(reverse("home:home"))
 
                     except Exception as e:
-
-                        print("Exception {}".format(e))
 
                         messages.warning(self.request, "Qualcosa è andato storto :( Ricontrolla la tua ordinazione")
                         ord.delete()
@@ -250,7 +248,7 @@ def add_to_cart(request, nome):
             carrello_qs.prodotti.add(order_item)
 
         carrello_qs.save()
-        return redirect(reverse("menu:menu_ordinato"))
+        return redirect(reverse("menu:menu_ordinato")+"#{}".format(item.nome))
 
     else:
         return redirect(reverse("home:home"))
@@ -278,7 +276,7 @@ def remove_from_cart(request, nome):
 
         carrello_qs.save()
 
-        return redirect(reverse("menu:menu_ordinato"))
+        return redirect(reverse("menu:menu_ordinato")+"#{}".format(item.nome))
 
     else:
         return redirect(reverse("home:home"))
@@ -304,7 +302,7 @@ def delete_from_cart(request, nome):
             order_item.save()
 
         carrello_qs.save()
-        return redirect(reverse("menu:menu_ordinato"))
+        return redirect(reverse("menu:menu_ordinato")+"#{}".format(item.nome))
 
     else:
         return redirect(reverse("home:home"))

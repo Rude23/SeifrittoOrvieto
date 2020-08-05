@@ -9,7 +9,7 @@
 {% block title %} SeiFritto-Orvieto {% endblock %}
 
 {% block navbar %}
-<nav class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
      <div class="container-fluid">
 
          <a class="navbar-brand"  href="/"> <h1>6fritto</h1> </a>
@@ -46,6 +46,8 @@
 {% endblock %}
 
 {% block content %}
+<div id="content">
+
 <div id="slide_show" class="carousel slide" data-interval="4000" data-ride="carousel">
 
     <div class="carousel-inner">
@@ -74,9 +76,7 @@
     <h5>Categoria "Premio per l'accoglienza e la location caratteristica"</h5>
 
 </div>
-{% endblock %}
 
-{% block footer %}
 <div class="container-fluid">
 
     <div class="row text-center">
@@ -137,6 +137,9 @@
             <div>
                 <div class="text-center">
 
+                    <h5> Dom </h5>
+                    <p> 10:00 - 15:30 | 18:15 - 23:45 </p>
+
                     <h5> Lun - Mar - Mer </h5>
                     <p> 10:00 - 15:30 | 17:30 - 22:00</p>
 
@@ -144,9 +147,6 @@
                     <p> 10:00 - 23:45 </p>
 
                     <h5> Giovedì chiuso </h5>
-
-                    <h5> Dom </h5>
-                    <p> 10:00 - 15:30 | 18:15 - 23:45 </p>
 
                 </div>
             </div>
@@ -165,4 +165,8 @@
     </div>
 
 </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
 {% endblock %}

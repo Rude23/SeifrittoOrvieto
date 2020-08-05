@@ -6,11 +6,6 @@ html, body, footer{
     color: #191919;
 }
 
-body{
-    padding-top:6.8rem;
-    padding-bottom:3.8rem;
-}
-
 body div {
 backgroud-color: #f5f5f5;
 }
@@ -33,6 +28,7 @@ font-size: 100%;
 }
 
 #navbar{
+overflow-x: auto !important;
 overflow-y: auto !important;
 max-height: 200px !important;
 }
@@ -47,6 +43,9 @@ max-height: 200px !important;
     float: left;
 }
 
+#menu{
+overflow-y: scroll;
+}
 
 @media (max-width: 576px) {
 html {
