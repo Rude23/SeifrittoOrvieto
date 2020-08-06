@@ -27,6 +27,17 @@ border: 2px solid #191919;
 font-size: 100%;
 }
 
+#cart{
+overflow-x: auto !important;
+overflow-y: auto !important;
+}
+
+#carrello{
+overflow-x: hidden !important;
+overflow-y: scroll !important;
+max-height: 200px !important;
+}
+
 #navbar{
 overflow-x: auto !important;
 overflow-y: auto !important;
