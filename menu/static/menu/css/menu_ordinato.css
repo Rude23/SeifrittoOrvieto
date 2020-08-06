@@ -27,6 +27,11 @@ border: 2px solid #191919;
 font-size: 100%;
 }
 
+#orari{
+overflow-x: auto !important;
+overflow-y: auto !important;
+}
+
 #cart{
 overflow-x: auto !important;
 overflow-y: auto !important;
