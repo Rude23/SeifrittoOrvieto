@@ -6,6 +6,17 @@ html, body, header{
 #cart{
 overflow-x: auto !important;
 overflow-y: auto !important;
+}
+
+#carrello{
+overflow-x: hidden !important;
+overflow-y: scroll !important;
+max-height: 200px !important;
+}
+
+#navbar{
+overflow-x: auto !important;
+overflow-y: auto !important;
 max-height: 200px !important;
 }
 
@@ -15,7 +26,6 @@ overflow-y: scroll;
 
 .collapse-header [data-toggle="collapse"][aria-expanded="false"]::after {
     content: "+";
-
 }
 
 .collapse-header [data-toggle="collapse"]::after {
