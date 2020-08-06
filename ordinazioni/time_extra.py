@@ -1,5 +1,4 @@
 from datetime import time, date
-from django import template
 from django.utils import timezone
 
 #quick&dirty
@@ -9,9 +8,6 @@ CLOSING_MORNING = time(hour=15,minute=0)
 OPEN_AFTERNOON = time(17,30)
 CLOSING_AFTERNOON = time(21,30)
 
-register=template.Library()
-
-@register.filter(name="isOpen")
 def isOpen():
 
     if date.today().isoweekday() == 4:
