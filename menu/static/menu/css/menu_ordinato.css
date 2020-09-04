@@ -30,17 +30,13 @@ font-size: 100%;
 #orari{
 overflow-x: auto !important;
 overflow-y: auto !important;
-}
-
-#cart{
-overflow-x: auto !important;
-overflow-y: auto !important;
+max-height: 200px !important;
 }
 
 #carrello{
 overflow-x: hidden !important;
-overflow-y: scroll !important;
-max-height: 200px !important;
+overflow-y: auto !important;
+max-height: 160px !important;
 }
 
 #navbar{
