@@ -10,10 +10,12 @@ CLOSING_AFTERNOON = time(21,30)
 
 def isOpen():
 
-    if date.today().isoweekday() == 4:
+#    if date.today().isoweekday() == 4:
         return False
 
-    else:
-        now = timezone.localtime(timezone.now()).time()
+#    else:
+#        now = timezone.localtime(timezone.now()).time()
 
-        return OPEN_MORNING <= now <= CLOSING_MORNING or OPEN_AFTERNOON <= now <= CLOSING_AFTERNOON
+#        return OPEN_MORNING <= now <= CLOSING_MORNING or OPEN_AFTERNOON <= now <= CLOSING_AFTERNOON
+
+ 
